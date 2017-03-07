@@ -28,6 +28,8 @@ class GooglePlaceAutocomplete extends Component {
       types: ['geocode']
      });
     this.updateInput = this.updateInput.bind(this);
+    this.populateData = this.populateData.bind(this);
+
     // this.handleNewRequest = this.handleNewRequest.bind(this);
   }
 
@@ -47,19 +49,30 @@ class GooglePlaceAutocomplete extends Component {
   //     });
   //   }
   // }
-
+  populateData (array) {
+    let formattedArray = array.map((item)=>{
+      // console.log(item);
+      return item.terms[0].value;
+    })
+    console.log(formattedArray);
+    this.setState({
+      data: formattedArray
+    }, ()=>{console.log('updated:', this.state.data);});
+    // console.log(this.state.data);
+  }
 
   updateInput (searchText){
     this.setState({
       searchText: searchText
     },
     () => {
+      let outerScope = this;
       // wait until state is populated
       if (/\S/.test(this.state.searchText)) {
         this.service.getPlacePredictions({ input: this.state.searchText }, function(predictions, status) {
           // TODO:
           // handle case if it returns null
-          console.log(predictions[0])
+          outerScope.populateData(predictions)
         });
       }
     });
@@ -82,7 +95,7 @@ class GooglePlaceAutocomplete extends Component {
             onUpdateInput={this.updateInput}
             // onChange={this.handleNewRequest}
             // onNewRequest={this.handleNewRequest}
-            dataSource={colors}
+            dataSource={this.state.data}
             filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
             openOnFocus={true}
           />
