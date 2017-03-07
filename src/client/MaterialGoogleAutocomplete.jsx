@@ -4,23 +4,11 @@ import {render} from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-const colors = [
-  'Red',
-  'Orange',
-  'Yellow',
-  'Green',
-  'Blue',
-  'Purple',
-  'Black',
-  'White',
-];
-
 class GooglePlaceAutocomplete extends Component {
   constructor(props) {
     super(props);
     // this.autocompleteService = new google.maps.places.AutocompleteService();
     this.state = {
-      dataSource: [],
       data: [],
       searchText: ''
     };
@@ -29,8 +17,7 @@ class GooglePlaceAutocomplete extends Component {
      });
     this.updateInput = this.updateInput.bind(this);
     this.populateData = this.populateData.bind(this);
-
-    // this.handleNewRequest = this.handleNewRequest.bind(this);
+    this.getCurrentDataState = this.getCurrentDataState.bind(this);
   }
 
   // getUserLocation () {
@@ -50,53 +37,57 @@ class GooglePlaceAutocomplete extends Component {
   //   }
   // }
   populateData (array) {
+    console.log('populate data called');
     let formattedArray = array.map((item)=>{
-      // console.log(item);
       return item.terms[0].value;
     })
-    console.log(formattedArray);
-    this.setState({
-      data: formattedArray
-    }, ()=>{console.log('updated:', this.state.data);});
+    if (formattedArray !== this.state.formattedArray){
+      this.setState({
+        data: formattedArray
+      }, ()=>{
+        console.log('updated:', this.state.data);
+      });
+    }
     // console.log(this.state.data);
   }
 
   updateInput (searchText){
+    console.log('updateInput', this.state.data);
     this.setState({
       searchText: searchText
     },
     () => {
       let outerScope = this;
       // wait until state is populated
-      if (/\S/.test(this.state.searchText)) {
-        this.service.getPlacePredictions({ input: this.state.searchText }, function(predictions, status) {
-          // TODO:
-          // handle case if it returns null
-          outerScope.populateData(predictions)
-        });
-      }
+      // if (/\S/.test(this.state.searchText)) {
+      this.service.getPlacePredictions({ input: this.state.searchText }, function(predictions, status) {
+        // TODO:
+        // handle case if it returns null
+        console.log('updating predictions', predictions)
+        console.log('current searchText', searchText);
+        outerScope.populateData(predictions)
+      });
+      // }
     });
   }
 
-    // handleNewRequest(){
-    //   console.log('on change triggered handlenewrequest');
-    //   this.setState({
-    //     searchText: this.state.searchText,
-    //   });
-    // };
+  getCurrentDataState() {
+    return this.state.data;
+  }
 
     render() {
       // this.getUserLocation();
       return (
         <div>
           <AutoComplete
+            animated={false}
             hintText="Type 'r', case insensitive"
             searchText={this.state.searchText}
             onUpdateInput={this.updateInput}
-            // onChange={this.handleNewRequest}
+            onChange={this.updateInput}
             // onNewRequest={this.handleNewRequest}
             dataSource={this.state.data}
-            filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
+            filter={AutoComplete.noFilter}
             openOnFocus={true}
           />
         </div>
