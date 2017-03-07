@@ -27,69 +27,61 @@ class GooglePlaceAutocomplete extends Component {
     this.service = new google.maps.places.AutocompleteService(null, {
       types: ['geocode']
      });
-    this.handleUpdateInput = this.handleUpdateInput.bind(this);
-    this.handleNewRequest = this.handleNewRequest.bind(this);
-
+    this.updateInput = this.updateInput.bind(this);
+    // this.handleNewRequest = this.handleNewRequest.bind(this);
   }
 
-  getUserLocation () {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position =>{
-        let geolocation = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        let circle = new google.maps.Circle({
-          center: geolocation,
-          radius: position.coords.accuracy,
+  // getUserLocation () {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(position =>{
+  //       let geolocation = {
+  //         lat: position.coords.latitude,
+  //         lng: position.coords.longitude,
+  //       };
+  //       let circle = new google.maps.Circle({
+  //         center: geolocation,
+  //         radius: position.coords.accuracy,
+  //       });
+  //       // autocomplete.setBounds(circle.getBounds());
+  //       // console.log(position);
+  //     });
+  //   }
+  // }
+
+
+  updateInput (searchText){
+    this.setState({
+      searchText: searchText
+    },
+    () => {
+      // wait until state is populated
+      if (/\S/.test(this.state.searchText)) {
+        this.service.getPlacePredictions({ input: this.state.searchText }, function(predictions, status) {
+          // TODO:
+          // handle case if it returns null
+          console.log(predictions[0])
         });
-        // autocomplete.setBounds(circle.getBounds());
-        // console.log(position);
-      });
-    }
+      }
+    });
   }
 
-
-    handleUpdateInput (searchText){
-      console.log('state before cb', searchText)
-      this.setState({
-        searchText: searchText
-      },
-      () => {
-        console.log('inside cb');
-        if (/\S/.test(this.state.searchText)) {
-          this.service.getPlacePredictions({ input: this.state.searchText }, function(predictions, status) {
-            // handle case if it returns null
-            console.log(predictions[0])
-          });
-        } else {
-          console.log('not a match inside cb', this.state.searchText, /\S/.test(this.state.searchText))
-        }
-      });
-      // console.log('state after', this.state.searchText);
-      // let service = new google.maps.places.AutocompleteService(null, {
-      //   types: ['geocode']
-      //  });
-      // make sure that there is not just whitespace
-    }
-
-    handleNewRequest(){
-      console.log('on change triggered handlenewrequest');
-      this.setState({
-        searchText: this.state.searchText,
-      });
-    };
+    // handleNewRequest(){
+    //   console.log('on change triggered handlenewrequest');
+    //   this.setState({
+    //     searchText: this.state.searchText,
+    //   });
+    // };
 
     render() {
-      this.getUserLocation();
+      // this.getUserLocation();
       return (
         <div>
           <AutoComplete
             hintText="Type 'r', case insensitive"
             searchText={this.state.searchText}
-            onUpdateInput={this.handleUpdateInput}
+            onUpdateInput={this.updateInput}
             // onChange={this.handleNewRequest}
-            onNewRequest={this.handleNewRequest}
+            // onNewRequest={this.handleNewRequest}
             dataSource={colors}
             filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
             openOnFocus={true}
