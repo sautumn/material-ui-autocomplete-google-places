@@ -96,6 +96,8 @@ class GooglePlaceAutocomplete extends Component {
                 text: item.description,
                 value: (
                   <MenuItem
+                    // autoWidth={true}
+                    style={{whiteSpace: 'normal'}}
                     primaryText={item.description}
                     leftIcon={<Marker />} />
                 )}
