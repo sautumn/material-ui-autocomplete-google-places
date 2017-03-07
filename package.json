@@ -9,17 +9,19 @@
     "build": "webpack -p"
   },
   "dependencies": {
-    "babel-loader": "^6.2.10",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-react": "^6.22.0",
+    "material-ui": "^0.17.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-loader": "^6.2.10",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-es2015": "^6.22.0",
-    "babel-preset-react": "^6.23.0"
+    "babel-preset-react": "^6.23.0",
+    "live-server": "^1.2.0",
+    "webpack": "^2.2.1"
   },
   "keywords": [
     "google places",
@@ -27,5 +29,9 @@
     "react"
   ],
   "author": "autumn smith",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sautumn/material-ui-autocomplete-google-places.git"
+  }
 }

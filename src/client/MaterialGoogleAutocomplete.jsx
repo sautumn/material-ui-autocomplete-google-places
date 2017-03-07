@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
 import {render} from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import Marker from 'material-ui/svg-icons/maps/place';
 injectTapEventPlugin();
 
 class GooglePlaceAutocomplete extends Component {
@@ -37,17 +40,19 @@ class GooglePlaceAutocomplete extends Component {
   //   }
   // }
   populateData (array) {
-    console.log('populate data called');
-    let formattedArray = array.map((item)=>{
-      return item.terms[0].value;
-    })
-    if (formattedArray !== this.state.formattedArray){
-      this.setState({
-        data: formattedArray
-      }, ()=>{
-        console.log('updated:', this.state.data);
-      });
-    }
+    this.setState({ data: array });
+    // console.log('populate data called');
+    // console.log('data', array);
+    // let formattedArray = array.map((item)=>{
+    //   return item.description;
+    // })
+    // if (formattedArray !== this.state.formattedArray){
+    //   this.setState({
+    //     data: formattedArray
+    //   }, ()=>{
+    //     console.log('updated:', this.state.data);
+    //   });
+    // }
     // console.log(this.state.data);
   }
 
@@ -86,7 +91,15 @@ class GooglePlaceAutocomplete extends Component {
             onUpdateInput={this.updateInput}
             onChange={this.updateInput}
             // onNewRequest={this.handleNewRequest}
-            dataSource={this.state.data}
+            dataSource={this.state.data.map((item) => {
+              return {
+                text: item.description,
+                value: (
+                  <MenuItem
+                    primaryText={item.description}
+                    leftIcon={<Marker />} />
+                )}
+            })}
             filter={AutoComplete.noFilter}
             openOnFocus={true}
           />
