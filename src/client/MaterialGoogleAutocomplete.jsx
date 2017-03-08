@@ -41,39 +41,27 @@ class GooglePlaceAutocomplete extends Component {
   // }
   populateData (array) {
     this.setState({ data: array });
-    // console.log('populate data called');
-    // console.log('data', array);
-    // let formattedArray = array.map((item)=>{
-    //   return item.description;
-    // })
-    // if (formattedArray !== this.state.formattedArray){
-    //   this.setState({
-    //     data: formattedArray
-    //   }, ()=>{
-    //     console.log('updated:', this.state.data);
-    //   });
-    // }
-    // console.log(this.state.data);
   }
 
   updateInput (searchText){
-    console.log('updateInput', this.state.data);
-    this.setState({
-      searchText: searchText
-    },
-    () => {
-      let outerScope = this;
-      // wait until state is populated
-      // if (/\S/.test(this.state.searchText)) {
-      this.service.getPlacePredictions({ input: this.state.searchText }, function(predictions, status) {
-        // TODO:
-        // handle case if it returns null
-        console.log('updating predictions', predictions)
-        console.log('current searchText', searchText);
-        outerScope.populateData(predictions)
+    if (searchText.length > 0){
+      this.setState({
+        searchText: searchText
+      },
+      () => {
+        let outerScope = this;
+        // wait until state is populated
+        // if (/\S/.test(this.state.searchText)) {
+        console.log('input', this.state.searchText)
+        this.service.getPlacePredictions({ input: this.state.searchText }, function(predictions, status) {
+          // TODO:
+          // handle case if it returns null
+          if (predictions) {
+            outerScope.populateData(predictions);
+          }
+        });
       });
-      // }
-    });
+    }
   }
 
   getCurrentDataState() {
@@ -81,16 +69,17 @@ class GooglePlaceAutocomplete extends Component {
   }
 
     render() {
-      // this.getUserLocation();
+      console.log(this.props.hintText);
       return (
         <div>
           <AutoComplete
-            animated={false}
-            hintText="Type 'r', case insensitive"
+            animated={this.props.animated}
+            hintText={this.props.hintText}
+            //Static vars for package / No user input
             searchText={this.state.searchText}
+            //Provided by Google Places API
             onUpdateInput={this.updateInput}
             onChange={this.updateInput}
-            // onNewRequest={this.handleNewRequest}
             dataSource={this.state.data.map((item) => {
               return {
                 text: item.description,
@@ -103,7 +92,6 @@ class GooglePlaceAutocomplete extends Component {
                 )}
             })}
             filter={AutoComplete.noFilter}
-            openOnFocus={true}
           />
         </div>
       );
