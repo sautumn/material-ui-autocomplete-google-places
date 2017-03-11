@@ -15,31 +15,20 @@ class GooglePlaceAutocomplete extends Component {
       data: [],
       searchText: ''
     };
+    this.geocoder = new google.maps.Geocoder;
     this.service = new google.maps.places.AutocompleteService(null, {
       types: ['geocode']
      });
+    // binding for functions
     this.updateInput = this.updateInput.bind(this);
     this.populateData = this.populateData.bind(this);
     this.getCurrentDataState = this.getCurrentDataState.bind(this);
+    this.getLatLgn = this.getLatLgn.bind(this);
+
   }
 
-  // getUserLocation () {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(position =>{
-  //       let geolocation = {
-  //         lat: position.coords.latitude,
-  //         lng: position.coords.longitude,
-  //       };
-  //       let circle = new google.maps.Circle({
-  //         center: geolocation,
-  //         radius: position.coords.accuracy,
-  //       });
-  //       // autocomplete.setBounds(circle.getBounds());
-  //       // console.log(position);
-  //     });
-  //   }
-  // }
   populateData (array) {
+    console.log(array)
     this.setState({ data: array });
   }
 
@@ -50,12 +39,7 @@ class GooglePlaceAutocomplete extends Component {
       },
       () => {
         let outerScope = this;
-        // wait until state is populated
-        // if (/\S/.test(this.state.searchText)) {
-        console.log('input', this.state.searchText)
         this.service.getPlacePredictions({ input: this.state.searchText }, function(predictions, status) {
-          // TODO:
-          // handle case if it returns null
           if (predictions) {
             outerScope.populateData(predictions);
           }
@@ -68,30 +52,66 @@ class GooglePlaceAutocomplete extends Component {
     return this.state.data;
   }
 
+  getLatLgn(locationID, cb) {
+    this.geocoder.geocode({ placeId: locationID }, (results, status) => {
+      cb(results, status);
+    });
+  }
+
     render() {
-      console.log(this.props.hintText);
       return (
         <div>
           <AutoComplete
-            animated={this.props.animated}
-            hintText={this.props.hintText}
-            //Static vars for package / No user input
+            anchorOrigin={this.props.anchorOrigin || { vertical: 'bottom', horizontal: 'left',}}
+            animated={this.props.animated || true }
+            animation={this.props.animation}
+            disableFocusRipple={this.props.disableFocusRipple || true}
+            errorStyle={this.props.errorStyle}
+            errorText={this.props.errorText}
+            filter={this.props.filter}
+            floatingLabelText={this.props.floatingLabelText}
+            fullWidth={this.props.fullWidth || false}
+            hintText={this.props.hintText || 'Enter search term here...'}
+            listStyle={this.props.listStyle}
+            maxSearchResults={this.props.maxSearchResults}
+            menuCloseDelay={this.props.menuCloseDelay || 300}
+            onClose={this.props.onClose}
+            onNewRequest={this.props.onNewRequest}
+            open={this.props.open || false}
+            style={this.props.style}
+            targetOrigin={this.props.targetOrigin}
+            textFieldStyle={this.props.textFieldStyle}
+            //Used by Google Places API / No user input
             searchText={this.state.searchText}
-            //Provided by Google Places API
             onUpdateInput={this.updateInput}
             onChange={this.updateInput}
+            filter={AutoComplete.noFilter}
+            onNewRequest={(chosenRequest, index)=>{
+              let dataItem = this.state.data[index];
+              // indexing bug
+              if (!dataItem){
+                dataItem = this.state.data[0];
+              }
+              this.getLatLgn(dataItem.place_id, (results, status) => {
+                console.log(status, results[0].geometry.location.lat());
+              })
+            }}
             dataSource={this.state.data.map((item) => {
               return {
                 text: item.description,
                 value: (
                   <MenuItem
-                    // autoWidth={true}
-                    style={{whiteSpace: 'normal'}}
+                    style={this.props.menuItemStyle || { fontSize: '14px'}}
+                    innerDivStyle={this.props.innerDivStyle || { paddingLeft: 38 }}
+                    //Used by Google Places / No user input
                     primaryText={item.description}
-                    leftIcon={<Marker />} />
+                    // onTouchTap={console.log('item',item.place_id)}
+                    leftIcon={<Marker
+                      style={{ width: '20px'}}
+                    />}
+                  />
                 )}
             })}
-            filter={AutoComplete.noFilter}
           />
         </div>
       );
@@ -99,3 +119,9 @@ class GooglePlaceAutocomplete extends Component {
   }
 
 export default GooglePlaceAutocomplete;
+
+{/* <Menu disableAutoFocus={true}>
+  <MenuItem leftIcon={<Search color='#fff'/>} disabled={true}>
+    <AutoComplete hintText='Search'/>
+  </MenuItem>
+</Menu>  */}

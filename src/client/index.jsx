@@ -11,6 +11,7 @@ class App extends React.Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <GooglePlaceAutocomplete
+            // googlePlacesParams={}
             hintText={"Enter search term here..."}
         />
       </MuiThemeProvider>
@@ -19,6 +20,5 @@ class App extends React.Component {
 }
 
 render(<App/>, document.getElementById('app'));
-
 
 export default App;
