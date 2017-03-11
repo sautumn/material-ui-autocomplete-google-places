@@ -17,7 +17,9 @@ class GooglePlaceAutocomplete extends Component {
     };
     this.geocoder = new google.maps.Geocoder;
     this.service = new google.maps.places.AutocompleteService(null, {
-      types: ['geocode']
+      componentRestrictions: {'country':'us'},
+      types: 'geocode',
+      language: 'fr'
      });
     // binding for functions
     this.updateInput = this.updateInput.bind(this);
@@ -28,7 +30,7 @@ class GooglePlaceAutocomplete extends Component {
   }
 
   populateData (array) {
-    console.log(array)
+
     this.setState({ data: array });
   }
 
@@ -93,7 +95,7 @@ class GooglePlaceAutocomplete extends Component {
                 dataItem = this.state.data[0];
               }
               this.getLatLgn(dataItem.place_id, (results, status) => {
-                console.log(status, results[0].geometry.location.lat());
+                console.log(results[0].geometry.location.lat(), results[0].geometry.location.lat());
               })
             }}
             dataSource={this.state.data.map((item) => {
@@ -101,7 +103,7 @@ class GooglePlaceAutocomplete extends Component {
                 text: item.description,
                 value: (
                   <MenuItem
-                    style={this.props.menuItemStyle || { fontSize: '14px'}}
+                    style={this.props.menuItemStyle || { fontSize: '12px'}}
                     innerDivStyle={this.props.innerDivStyle || { paddingLeft: 38 }}
                     //Used by Google Places / No user input
                     primaryText={item.description}
@@ -111,7 +113,8 @@ class GooglePlaceAutocomplete extends Component {
                     />}
                   />
                 )}
-            })}
+            })
+          }
           />
         </div>
       );
