@@ -30,7 +30,6 @@ class GooglePlaceAutocomplete extends Component {
   }
 
   populateData (array) {
-
     this.setState({ data: array });
   }
 
@@ -98,7 +97,25 @@ class GooglePlaceAutocomplete extends Component {
                 console.log(results[0].geometry.location.lat(), results[0].geometry.location.lat());
               })
             }}
-            dataSource={this.state.data.map((item) => {
+            dataSource={this.state.data.map((item, i, a) => {
+              if (i === a.length - 1) { // Add Powered By Google
+                return {
+                  text: '',
+                  value: (
+                    <MenuItem
+                      disabled
+                      children={
+                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                          <img
+                            width={96}
+                            height={12}
+                            src={'http://i.imgur.com/CjvYfuA.png'}
+                          />
+                        </div>
+                      }
+                    />
+                  )}
+              }
               return {
                 text: item.description,
                 value: (
@@ -108,9 +125,11 @@ class GooglePlaceAutocomplete extends Component {
                     //Used by Google Places / No user input
                     primaryText={item.description}
                     // onTouchTap={console.log('item',item.place_id)}
-                    leftIcon={<Marker
-                      style={{ width: '20px'}}
-                    />}
+                    leftIcon={
+                      <Marker
+                        style={{ width: '20px'}}
+                      />
+                    }
                   />
                 )}
             })
