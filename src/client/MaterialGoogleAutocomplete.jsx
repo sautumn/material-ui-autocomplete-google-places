@@ -66,7 +66,7 @@ class GooglePlaceAutocomplete extends Component {
             anchorOrigin={this.props.anchorOrigin || { vertical: 'bottom', horizontal: 'left',}}
             animated={this.props.animated || true }
             animation={this.props.animation}
-            disableFocusRipple={this.props.disableFocusRipple || true}
+            // disableFocusRipple={this.props.disableFocusRipple || true}
             errorStyle={this.props.errorStyle}
             errorText={this.props.errorText}
             filter={this.props.filter}
@@ -98,17 +98,19 @@ class GooglePlaceAutocomplete extends Component {
               })
             }}
             dataSource={this.state.data.map((item, i, a) => {
-              if (i === a.length - 1) { // Add Powered By Google
+              if (i === a.length - 1) {
                 return {
                   text: '',
                   value: (
                     <MenuItem
+                      style={{cursor: 'default'}}
                       disabled
                       children={
-                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <div style={{paddingTop: 20}}>
                           <img
-                            width={96}
-                            height={12}
+                            style={{float: 'right'}}
+                            width={'50%'}
+                            height={'50%'}
                             src={'http://i.imgur.com/CjvYfuA.png'}
                           />
                         </div>
@@ -120,7 +122,7 @@ class GooglePlaceAutocomplete extends Component {
                 text: item.description,
                 value: (
                   <MenuItem
-                    style={this.props.menuItemStyle || { fontSize: '12px'}}
+                    style={this.props.menuItemStyle || { fontSize: '12px', overflow: 'hidden'}}
                     innerDivStyle={this.props.innerDivStyle || { paddingLeft: 38 }}
                     //Used by Google Places / No user input
                     primaryText={item.description}
