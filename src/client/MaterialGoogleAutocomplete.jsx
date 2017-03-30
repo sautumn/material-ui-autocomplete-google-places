@@ -94,7 +94,7 @@ class GooglePlaceAutocomplete extends Component {
                 dataItem = this.state.data[0];
               }
               this.getLatLgn(dataItem.place_id, (results, status) => {
-                console.log(results[0].geometry.location.lat(), results[0].geometry.location.lat());
+                this.props.results(results[0].geometry.location.lat(), results[0].geometry.location.lat());
               })
             }}
             dataSource={this.state.data.map((item, i, a) => {
@@ -109,9 +109,9 @@ class GooglePlaceAutocomplete extends Component {
                         <div style={{paddingTop: 20}}>
                           <img
                             style={{float: 'right'}}
-                            width={'50%'}
-                            height={'50%'}
-                            src={'http://i.imgur.com/CjvYfuA.png'}
+                            width={96}
+                            height={12}
+                            src={'./poweredbyGoogle.png'}
                           />
                         </div>
                       }
@@ -122,11 +122,13 @@ class GooglePlaceAutocomplete extends Component {
                 text: item.description,
                 value: (
                   <MenuItem
-                    style={this.props.menuItemStyle || { fontSize: '12px', overflow: 'hidden'}}
+                    style={this.props.menuItemStyle || {
+                      fontSize: '12px', textOverflow: 'ellipsis',
+                      overflow: 'hidden',
+                      whiteSpace: 'pre'}}
                     innerDivStyle={this.props.innerDivStyle || { paddingLeft: 38 }}
                     //Used by Google Places / No user input
                     primaryText={item.description}
-                    // onTouchTap={console.log('item',item.place_id)}
                     leftIcon={
                       <Marker
                         style={{ width: '20px'}}

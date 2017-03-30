@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import {render} from 'react-dom';
-import GooglePlaceAutocomplete from './MaterialGoogleAutocomplete.jsx';
+
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import GooglePlaceAutocomplete from './MaterialGoogleAutocomplete.jsx';
 
 class App extends React.Component {
+  //Results from clicking on location
+  getCoords(lat, lng){
+    console.log(lat, lng);
+  };
 
   render() {
     return (
@@ -13,6 +18,8 @@ class App extends React.Component {
         <GooglePlaceAutocomplete
             googlePlacesType={'(regions)'}
             hintText={"Enter search term here..."}
+            results={this.getCoords}
+            // fullWidth={true}
         />
       </MuiThemeProvider>
     );
