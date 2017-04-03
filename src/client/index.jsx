@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {render} from 'react-dom';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -10,22 +10,34 @@ class App extends React.Component {
   //Results from clicking on location
   getCoords(lat, lng){
     console.log(lat, lng);
-  };
+  }
 
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <GooglePlaceAutocomplete
-            googlePlacesType={'(regions)'}
-            hintText={"Enter search term here..."}
-            results={this.getCoords}
-            // fullWidth={true}
+          //Function to return lat and lng
+          results={this.getCoords}
+
+          //OPTIONAL
+          //AutocompletionRequest object specification
+          // componentRestrictions={{
+          //   // types: ['(address)']
+          //   country: 'au'
+          // }}
+          // types={['establishment']}
+
+
+          //Search term text
+          // hintText={'Enter search term here...'}
+          //Set input bar to full width
+
         />
       </MuiThemeProvider>
     );
   }
 }
 
-render(<App/>, document.getElementById('app'));
+render(<App />, document.getElementById('app'));
 
 export default App;

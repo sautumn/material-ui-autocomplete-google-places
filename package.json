@@ -35,8 +35,11 @@
     "material-ui",
     "react"
   ],
-  "author": "autumn smith",
-  "license": "ISC",
+  "author": "autumn smith / github.com/sautumn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sautumn/material-ui-autocomplete-google-places/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sautumn/material-ui-autocomplete-google-places.git"
