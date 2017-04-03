@@ -3,6 +3,7 @@ import { AutoComplete, MenuItem } from 'material-ui';
 import Marker from 'material-ui/svg-icons/maps/place';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
+
 injectTapEventPlugin();
 
 class GooglePlaceAutocomplete extends Component {
@@ -115,7 +116,7 @@ class GooglePlaceAutocomplete extends Component {
                           style={{ float: 'right' }}
                           width={96}
                           height={12}
-                          src={'./poweredbyGoogle.png'}
+                          src="https://developers.google.com/places/documentation/images/powered-by-google-on-white.png"
                           alt="presentation"
                         />
                       </div>
