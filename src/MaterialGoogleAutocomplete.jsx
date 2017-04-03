@@ -49,7 +49,7 @@ class GooglePlaceAutocomplete extends Component {
           input: this.state.searchText,
           componentRestrictions: this.props.componentRestrictions,
           types: this.props.types,
-         },
+        },
           (predictions) => {
             if (predictions) {
               outerScope.populateData(predictions);
@@ -159,9 +159,7 @@ GooglePlaceAutocomplete.propTypes = {
   errorStyle: React.PropTypes.object,
   errorText: React.PropTypes.any,
   floatingLabelText: React.PropTypes.string,
-
   fullWidth: React.PropTypes.bool,
-
   hintText: React.PropTypes.string,
   listStyle: React.PropTypes.object,
   maxSearchResults: React.PropTypes.number,
