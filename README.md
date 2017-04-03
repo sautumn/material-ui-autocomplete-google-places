@@ -9,9 +9,9 @@ Useful Links:
 ### To get started:
 
 Include script tag in html file:
-```
+```html
 <head>
-	<script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 </head>
 ```
 
@@ -23,11 +23,11 @@ $ npm install material-ui-autocomplete-google-places
 
 
 Basic Use Case:
-```
+```js
 import GooglePlaceAutocomplete from 'material-ui-autocomplete-google-places';
 
 class App extends React.Component {
-  //Results from clicking on location
+  // Results from clicking on location
   getCoords(lat, lng){
     console.log(lat, lng);
   }
@@ -35,7 +35,7 @@ class App extends React.Component {
   render() {
     return (
       <GooglePlaceAutocomplete
-      	//Function to return lat and lng
+      	// Function to return lat and lng
       	results={this.getCoords}
       />
     );
@@ -45,12 +45,12 @@ class App extends React.Component {
 
 ### Optional Parameters for Google Places AutocompletionRequest object:
 
-```
+```js
 <GooglePlaceAutocomplete
-  //Function to return lat and lng
+  // Function to return lat and lng
   results={this.getCoords}
 
-  //AutocompletionRequest object specification
+  // AutocompletionRequest object specification
   componentRestrictions={{country: 'au'}}
   types={['establishment']}
 />
@@ -71,7 +71,7 @@ class App extends React.Component {
 * menuCloseDelay
 * menuStyle
 * onClose
-* open - default: false}
+* open - default: false
 * style
 * targetOrigin
 * textFieldStyle
