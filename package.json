@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "start": "node app.js",
-    "build": "webpack"
+    "build": "babel src --out-dir lib",
+    "watch": "npm run build -- -w"
   },
   "peerDependencies": {
     "material-ui": "^0.17.0",
@@ -14,20 +15,15 @@
     "react-tap-event-plugin": "^2.0.0"
   },
   "devDependencies": {
-    "babel": "^6.23.0",
-    "babel-core": "^6.23.1",
-    "babel-loader": "^6.2.10",
-    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-cli": "^6.24.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.3",
-    "live-server": "^1.2.0",
-    "webpack": "^2.2.1"
+    "eslint-plugin-react": "^6.10.3"
   },
   "keywords": [
     "google places",
