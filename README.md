@@ -1,4 +1,4 @@
-# material-ui-google-places
+# material-ui-autocomplete-google-places
 
 React component that uses Google Places API AutocompleteService, Google Maps Geocoder, and Material-UI AutoComplete to replicate Google Places Autocomplete search dropdown in Material-UI. Returns latitude and longitude from selected item.
 
@@ -18,13 +18,13 @@ Include script tag in html file:
 Install package:
 
 ```
-$ npm install material-ui-google-places
+$ npm install material-ui-autocomplete-google-places
 ```
 
 
 Basic Use Case:
 ```
-import GooglePlaceAutocomplete from 'material-ui-google-places';
+import GooglePlaceAutocomplete from 'material-ui-autocomplete-google-places';
 
 class App extends React.Component {
   //Results from clicking on location
