@@ -1,6 +1,6 @@
 {
   "name": "material-ui-autocomplete-google-places",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "npm package to use material ui autcomplete with google places autocomplete feature",
   "main": "lib/index.js",
   "scripts": {
