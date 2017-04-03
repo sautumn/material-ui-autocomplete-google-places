@@ -17,8 +17,8 @@ class GooglePlaceAutocomplete extends Component {
     const google = window.google;
     this.geocoder = new google.maps.Geocoder;
 
-    //Documentation for AutocompleteService
-    //https://developers.google.com/maps/documentation/javascript/places-autocomplete#place_autocomplete_service
+    // Documentation for AutocompleteService
+    // https://developers.google.com/maps/documentation/javascript/places-autocomplete#place_autocomplete_service
     this.service = new google.maps.places.AutocompleteService(null);
 
     // binding for functions
@@ -38,13 +38,13 @@ class GooglePlaceAutocomplete extends Component {
     });
   }
 
-  updateInput (searchText){
-    if (searchText.length > 0){
+  updateInput(searchText) {
+    if (searchText.length > 0) {
       this.setState({
-        searchText: searchText,
+        searchText,
       },
       () => {
-        let outerScope = this;
+        const outerScope = this;
         this.service.getPlacePredictions({
           input: this.state.searchText,
           componentRestrictions: this.props.componentRestrictions,
@@ -59,7 +59,7 @@ class GooglePlaceAutocomplete extends Component {
     }
   }
 
-  populateData (array) {
+  populateData(array) {
     this.setState({ data: array });
   }
   render() {
@@ -83,7 +83,7 @@ class GooglePlaceAutocomplete extends Component {
           style={this.props.style}
           targetOrigin={this.props.targetOrigin}
           textFieldStyle={this.props.textFieldStyle}
-          //Used by Google Places API / No user input
+          // Used by Google Places API / No user input
           searchText={this.state.searchText}
           onUpdateInput={this.updateInput}
           onChange={this.updateInput}
@@ -95,7 +95,10 @@ class GooglePlaceAutocomplete extends Component {
               dataItem = this.state.data[0];
             }
             this.getLatLgn(dataItem.place_id, (results) => {
-              this.props.results(results[0].geometry.location.lat(), results[0].geometry.location.lat());
+              this.props.results(
+                results[0].geometry.location.lat(),
+                results[0].geometry.location.lat(),
+              );
             });
           }}
           dataSource={this.state.data.map((item, i, a) => {
@@ -104,12 +107,12 @@ class GooglePlaceAutocomplete extends Component {
                 text: '',
                 value: (
                   <MenuItem
-                    style={{cursor: 'default'}}
+                    style={{ cursor: 'default' }}
                     disabled
                     children={
-                      <div style={{paddingTop: 20}}>
+                      <div style={{ paddingTop: 20 }}>
                         <img
-                          style={{float: 'right'}}
+                          style={{ float: 'right' }}
                           width={96}
                           height={12}
                           src={'./poweredbyGoogle.png'}
@@ -118,7 +121,7 @@ class GooglePlaceAutocomplete extends Component {
                       </div>
                     }
                   />
-                )};
+                ) };
             }
             return {
               text: item.description,
@@ -131,15 +134,15 @@ class GooglePlaceAutocomplete extends Component {
                     overflow: 'hidden',
                   }}
                   innerDivStyle={this.props.innerDivStyle || { paddingRight: 38, paddingLeft: 38 }}
-                  //Used by Google Places / No user input
+                  // Used by Google Places / No user input
                   primaryText={item.description}
                   leftIcon={
                     <Marker
-                      style={{ width: '20px'}}
+                      style={{ width: '20px' }}
                     />
                   }
                 />
-              )};
+              ) };
           })
         }
         />
@@ -149,10 +152,10 @@ class GooglePlaceAutocomplete extends Component {
   }
 
 GooglePlaceAutocomplete.propTypes = {
-  //Google componentRestrictions
+  // Google componentRestrictions
   componentRestrictions: React.PropTypes.object,
   types: React.PropTypes.array,
-  //AutoComplete properties
+  // AutoComplete properties
   anchorOrigin: React.PropTypes.object,
   animated: React.PropTypes.bool,
   animation: React.PropTypes.func,
@@ -176,7 +179,7 @@ GooglePlaceAutocomplete.propTypes = {
   style: React.PropTypes.object,
   targetOrigin: React.PropTypes.object,
   textFieldStyle: React.PropTypes.object,
-  //Prop types for dataSource
+  // Prop types for dataSource
   innerDivStyle: React.PropTypes.object,
   menuItemStyle: React.PropTypes.object,
   results: React.PropTypes.func,
