@@ -88,7 +88,7 @@ class GooglePlaceAutocomplete extends Component {
           onUpdateInput={this.updateInput}
           onChange={this.updateInput}
           filter={AutoComplete.noFilter}
-          onNewRequest={(chosenRequest, index)=>{
+          onNewRequest={(chosenRequest, index) => {
             let dataItem = this.state.data[index];
             // indexing bug
             if (!dataItem) {

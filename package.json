@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "watch": "webpack -d --watch",
-    "build": "webpack -p"
+    "watch": "webpack -d --watch"
   },
   "dependencies": {
     "material-ui": "^0.17.0",
