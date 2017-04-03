@@ -1,0 +1,3 @@
+node_modules
+/src/compiled
+.DS_Store

@@ -21,7 +21,8 @@ var config = {
   entry: APP_DIR + '/index.js',
   output: {
     path: BUILD_DIR,
-    filename: 'index.js'
+    filename: 'index.js',
+    libraryTarget: 'commonjs-module',
   }
 };
 
