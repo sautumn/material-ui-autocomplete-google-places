@@ -34,10 +34,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <GooglePlaceAutocomplete
-      	// Function to return lat and lng
-      	results={this.getCoords}
-      />
+      <MuiThemeProvider muiTheme={getMuiTheme()}>
+        <GooglePlaceAutocomplete
+        	// Function to return lat and lng
+        	results={this.getCoords}
+        />
+      </MuiThemeProvider>
     );
   }
 }

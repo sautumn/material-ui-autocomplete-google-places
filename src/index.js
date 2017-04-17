@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { AutoComplete, MenuItem } from 'material-ui';
 import Marker from 'material-ui/svg-icons/maps/place';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
-
-injectTapEventPlugin();
 
 class GooglePlaceAutocomplete extends Component {
   constructor(props) {
