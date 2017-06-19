@@ -94,7 +94,7 @@ class GooglePlaceAutocomplete extends Component {
             this.getLatLgn(dataItem.place_id, (results) => {
               this.props.results(
                 results[0].geometry.location.lat(),
-                results[0].geometry.location.lat(),
+                results[0].geometry.location.lng(),
               );
             });
           }}
