@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AutoComplete, MenuItem } from 'material-ui';
 import Marker from 'material-ui/svg-icons/maps/place';
+import PropTypes from 'prop-types';
 
 class GooglePlaceAutocomplete extends Component {
   constructor(props) {
@@ -150,36 +151,36 @@ class GooglePlaceAutocomplete extends Component {
 
 GooglePlaceAutocomplete.propTypes = {
   // Google componentRestrictions
-  componentRestrictions: React.PropTypes.object,
-  types: React.PropTypes.array,
+  componentRestrictions: PropTypes.object,
+  types: PropTypes.array,
   // AutoComplete properties
-  anchorOrigin: React.PropTypes.object,
-  animated: React.PropTypes.bool,
-  animation: React.PropTypes.func,
-  errorStyle: React.PropTypes.object,
-  errorText: React.PropTypes.any,
-  floatingLabelText: React.PropTypes.string,
-  fullWidth: React.PropTypes.bool,
-  hintText: React.PropTypes.string,
-  listStyle: React.PropTypes.object,
-  maxSearchResults: React.PropTypes.number,
-  menuCloseDelay: React.PropTypes.number,
-  menuProps: React.PropTypes.object,
-  menuStyle: React.PropTypes.object,
-  onClose: React.PropTypes.func,
-  onNewRequest: React.PropTypes.func,
-  onUpdateInput: React.PropTypes.func,
-  open: React.PropTypes.bool,
-  openOnFocus: React.PropTypes.bool,
-  popoverProps: React.PropTypes.object,
-  searchText: React.PropTypes.string,
-  style: React.PropTypes.object,
-  targetOrigin: React.PropTypes.object,
-  textFieldStyle: React.PropTypes.object,
+  anchorOrigin: PropTypes.object,
+  animated: PropTypes.bool,
+  animation: PropTypes.func,
+  errorStyle: PropTypes.object,
+  errorText: PropTypes.any,
+  floatingLabelText: PropTypes.string,
+  fullWidth: PropTypes.bool,
+  hintText: PropTypes.string,
+  listStyle: PropTypes.object,
+  maxSearchResults: PropTypes.number,
+  menuCloseDelay: PropTypes.number,
+  menuProps: PropTypes.object,
+  menuStyle: PropTypes.object,
+  onClose: PropTypes.func,
+  onNewRequest: PropTypes.func,
+  onUpdateInput: PropTypes.func,
+  open: PropTypes.bool,
+  openOnFocus: PropTypes.bool,
+  popoverProps: PropTypes.object,
+  searchText: PropTypes.string,
+  style: PropTypes.object,
+  targetOrigin: PropTypes.object,
+  textFieldStyle: PropTypes.object,
   // Prop types for dataSource
-  innerDivStyle: React.PropTypes.object,
-  menuItemStyle: React.PropTypes.object,
-  results: React.PropTypes.func,
+  innerDivStyle: PropTypes.object,
+  menuItemStyle: PropTypes.object,
+  results: PropTypes.func,
 };
 
 export default GooglePlaceAutocomplete;
