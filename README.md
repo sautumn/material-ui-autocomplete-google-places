@@ -1,3 +1,11 @@
+# Current Status of Project
+Sadly this project has been neglected as our jobs have taken all of our attention. Sorry 😞
+
+I've recently fixed breaking issues for **Material UI 0.17.0**, **the package currently only works with this legacy version**.
+
+# The Good News 🎉
+Some free time has come up and our goal is to do a complete rewrite with support for the latest Material UI (3.8.x as of this writing)
+
 # material-ui-autocomplete-google-places
 
 React component that uses Google Places API AutocompleteService, Google Maps Geocoder, and Material-UI AutoComplete to replicate Google Places Autocomplete search dropdown in Material-UI. Returns latitude and longitude from selected item.
